@@ -1,9 +1,16 @@
 from re import A
 from django.urls import path
-from .views import article_list_view, article_detail_view
+from .views import article_list_view, article_detail_view, ArticleAPIView, ArticleDetailView
 
 urlpatterns = [
-    path('article/', article_list_view),
-    path('article/<int:pk>/', article_detail_view)
+    # ================function based =================================
+
+    # path('article/', article_list_view),
+    # path('article/<int:pk>/', article_detail_view),
+
+    # ============================class based=========================
+
+    path('article/<int:pk>/', ArticleDetailView.as_view()),
+    path('article/', ArticleAPIView.as_view()),
 
 ]
