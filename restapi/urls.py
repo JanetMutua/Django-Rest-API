@@ -1,6 +1,6 @@
 from re import A
 from django.urls import path
-from .views import article_list_view, article_detail_view, ArticleAPIView, ArticleDetailView
+from .views import article_list_view, article_detail_view, ArticleAPIView, ArticleDetailView, GenericAPIView
 
 urlpatterns = [
     # ================function based =================================
@@ -12,5 +12,10 @@ urlpatterns = [
 
     path('article/<int:pk>/', ArticleDetailView.as_view()),
     path('article/', ArticleAPIView.as_view()),
+
+    # ====================generic views|mixins==============================
+
+    path('article/generic/<int:id>/', GenericAPIView.as_view()),
+    path('article/generic/', GenericAPIView.as_view()),
 
 ]
