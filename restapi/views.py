@@ -12,11 +12,59 @@ from rest_framework import generics
 from rest_framework import mixins
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets
+from django.shortcuts import get_object_or_404
 
 # =========================Create your views here========================================
 
+# =======================================modelviewsets====================================
 
-# =======================function based API views===========================================
+
+class ArticleViewset(viewsets.ModelViewSet):
+    serializer_class = ArticleSerializer
+    queryset = Article.objects.all()
+
+
+# ==============================generic viewsets========================================
+
+# class ArticleViewset(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin):
+#     serializer_class = ArticleSerializer
+#     queryset = Article.objects.all()
+
+
+# ==============================viewsets and routers==========================================
+
+
+# class ArticleViewset(viewsets.ViewSet):
+#     def list(self, request):
+#         articles = Article.objects.all()
+#         serializer = ArticleSerializer(articles, many=True)
+#         return Response(serializer.data)
+
+#     def create(self, request):
+#         serializer = ArticleSerializer(data=request.data)
+
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#     def retrieve(self, request, pk=None):
+#         query_set = Article.objects.all()
+#         article = get_object_or_404(query_set, pk=pk)
+#         serializer = ArticleSerializer(article)
+#         return Response(serializer.data)
+
+#     def update(self, request, pk=None):
+#         article = Article.objects.get(pk=pk)
+#         serializer = ArticleSerializer(article, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+
+    # =======================function based API views===========================================
+
 
 @api_view(['GET', 'POST'])
 def article_list_view(request):
